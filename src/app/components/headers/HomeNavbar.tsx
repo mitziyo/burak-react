@@ -59,10 +59,7 @@ export function HomeNavbar() {
                 Help
               </NavLink>
             </Box>
-            {<img
-                style={{ width: "125px", height: "30px" }}
-                src="/icons/basket"
-              />}
+            {/** Basket */}
 
             {!authmember ? (
               <Box>
