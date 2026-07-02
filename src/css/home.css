@@ -3,7 +3,7 @@
   height: auto;
 }
 
-/************   STATISTICS   **********/
+/* STATISTICS */
 
 .homepage .static-frame {
   width: 100%;
@@ -29,22 +29,74 @@
 }
 
 .homepage .static-frame .info .static-box .static-num {
-  text-align: center;
   font-family: "Poppins";
   font-style: normal;
-  font-weight: 600;
   font-size: 54px;
-  line-height: 80px;
-  color: #d7b686;
+  font-weight: 600;
+  line-height: normal;
+  text-align: center;
+  color: rgba(215, 182, 134, 1);
 }
 
 .homepage .static-frame .info .static-box .static-text {
-  text-align: center;
   font-family: "Poppins";
-  font-style: normal;
-  font-weight: 500;
+  font-style: Medium;
   font-size: 20px;
+  font-weight: 500;
   line-height: 30px;
-  color: #d7b686;
+  letter-spacing: 0%;
+  text-align: center;
+
+  color: rgba(215, 181, 134, 1);
 }
 
+/* POPULAR  DISHES */
+
+.homepage .popular-dishes-frame {
+  width: 100%;
+  height: 580px;
+  display: flex;
+  background: #f8f8ff;
+}
+
+.homepage .popular-dishes-frame .popular-section {
+  margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homepage .popular-dishes-frame .popular-section .category-title {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.44px;
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+}
+
+.homepage .popular-dishes-frame .popular-section .cards-frame {
+  margin-top: 43px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+}
+
+.homepage .popular-dishes-frame .popular-section .cards-frame .card {
+  /* Product */
+  width: 300px;
+  height: 430px;
+  max-width: 320px;
+  cursor: pointer;
+}
+
+.homepage .popular-dishes-frame .cards-frame .card .card-cover {
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 200px),
+    linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 300px);
+}

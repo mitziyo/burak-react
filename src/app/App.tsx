@@ -2,7 +2,6 @@ import React from "react";
 
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { RippleBadge } from "./MaterialTheme/styled";
-import { backgroundColor } from "@mui/system";
 import { Link, Route, Router, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
 import ProductsPage from "./screens/productsPage";
