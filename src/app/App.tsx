@@ -12,9 +12,10 @@ import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer"; // @ts-ignore
 
 import "../css/app.css"; // @ts-ignore
-import "../css/navbar.css"; // @ts-ignore 
+import "../css/navbar.css"; // @ts-ignore
 import "../css/footer.css";
 import HelpPage from "./screens/helpPage";
+import Test from "./screens/Test";
 
 function App() {
   const location = useLocation(); // uselocation react router domning hook i bzga object va path beradi
@@ -36,7 +37,8 @@ function App() {
           <HelpPage />
         </Route>
         <Route path="/">
-          <HomePage />
+          <Test />
+          {/*<HomePage />*/}
         </Route>
       </Switch>
       <Footer />
