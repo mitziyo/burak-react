@@ -8,73 +8,93 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Divider from "../../components/divider";
 
-const newDishes = [
-    { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
-    { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
-    { productName: "Kebab", imagePath: "/img/kebab.webp" },
-    { productName: "Lavash", imagePath: "/img/lavash.webp" },
-];
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveNewDishes } from "./selector";
+import { Product } from "../../../lib/types/product";
+import ProductService from "../../services/ProductService";
+import { serverApi } from "../../../lib/config";
+import { ProductCollection } from "../../../lib/enums/product.enum";
+
+/*****   REDUX SLICE & SELECTOR    *****/
+
+const newDishesRetriever = createSelector(retrieveNewDishes, (newDishes) => ({
+  newDishes,
+}));
 
 export default function NewDishes() {
-    console.log("newDishes:", newDishes);
+  const { newDishes } = useSelector(newDishesRetriever);
 
-    return (
-        <div className={"new-products-frame"}>
-            <Container>
-                <Stack className={"main"}>
-                    <Box className={"category-title"}>Fresh Menu</Box>
-                    <Stack className={"cards-frame"}>
-                        <CssVarsProvider>
-                            {newDishes.length !== 0 ? (
-                                newDishes.map((ele, index) => {
-                                    return (
-                                        <Card key={index} variant="outlined" className={"card"}>
-                                            <CardOverflow>
-                                                <div className="product-sale">Normal size</div>
-                                                <AspectRatio ratio="1">
-                                                    <img src={ele.imagePath} alt="" />
-                                                </AspectRatio>
-                                            </CardOverflow>
+  console.log("newDishes:", newDishes);
 
-                                            <CardOverflow variant="soft" className="product-detail">
-                                                <Stack className="info">
-                                                    <Stack flexDirection={"row"}>
-                                                        <Typography
-                                                            className={"title"}
-                                                            sx={{
-                                                                display: "block",
-                                                                overflow: "hidden",
-                                                                textOverflow: "ellipsis",
-                                                                whiteSpace: "nowrap",
-                                                                marginRight: "10px",
-                                                            }}
-                                                            noWrap
-                                                        >
-                                                            {ele.productName}
-                                                        </Typography>
-                                                        <Divider width="2" height="24" bg="#d9d9d9" />
-                                                        <Typography className={"price"}>$12</Typography>
-                                                    </Stack>
-                                                    <Stack>
-                                                        <Typography className={"views"}>
-                                                            20
-                                                            <VisibilityIcon
-                                                                sx={{ fontSize: 20, marginLeft: "5px" }}
-                                                            />
-                                                        </Typography>
-                                                    </Stack>
-                                                </Stack>
-                                            </CardOverflow>
-                                        </Card>
-                                    );
-                                })
-                            ) : (
-                                <Box className="no-data">New products are not available!</Box>
-                            )}
-                        </CssVarsProvider>
-                    </Stack>
-                </Stack>
-            </Container>
-        </div>
-    );
+  return (
+    <div className={"new-products-frame"}>
+      <Container>
+        <Stack className={"main"}>
+          <Box className={"category-title"}>Fresh Menu</Box>
+          <Stack className={"cards-frame"}>
+            <CssVarsProvider>
+              {newDishes.length !== 0 ? (
+                newDishes.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.DRINK
+                      ? product.productVolume + " l"
+                      : product.productSize + " size";
+                  return (
+                    <Card
+                      key={product._id}
+                      variant="outlined"
+                      className={"card"}
+                    >
+                      <CardOverflow>
+                        <div className="product-sale">{sizeVolume}</div>
+                        <AspectRatio ratio="1">
+                          <img src={imagePath} alt="" />
+                        </AspectRatio>
+                      </CardOverflow>
+
+                      <CardOverflow variant="soft" className="product-detail">
+                        <Stack className="info">
+                          <Stack flexDirection={"row"}>
+                            <Typography
+                              className={"title"}
+                              sx={{
+                                display: "block",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                marginRight: "10px",
+                              }}
+                              noWrap
+                            >
+                              {product.productName}
+                            </Typography>
+                            <Divider width="2" height="24" bg="#d9d9d9" />
+                            <Typography className={"price"}>
+                              ${product.productPrice}
+                            </Typography>
+                          </Stack>
+                          <Stack>
+                            <Typography className={"views"}>
+                              {product.productViews}
+                              <VisibilityIcon
+                                sx={{ fontSize: 20, marginLeft: "5px" }}
+                              />
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </CardOverflow>
+                    </Card>
+                  );
+                })
+              ) : (
+                <Box className="no-data">New products are not available!</Box>
+              )}
+            </CssVarsProvider>
+          </Stack>
+        </Stack>
+      </Container>
+    </div>
+  );
 }
