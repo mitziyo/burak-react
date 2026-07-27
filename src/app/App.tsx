@@ -9,19 +9,25 @@ import OrdersPage from "./screens/ordersPage";
 import UserPage from "./screens/userPage";
 import HomeNavbar from "./components/headers/HomeNavbar";
 import OtherNavbar from "./components/headers/OtherNavbar";
-import Footer from "./components/footer"; // @ts-ignore
-
+import Footer from "./components/footer";
+import HelpPage from "./screens/helpPage";
+import Test from "./screens/Test";
+import useBasket from "./hooks/useBasket"; // @ts-ignore
 import "../css/app.css"; // @ts-ignore
 import "../css/navbar.css"; // @ts-ignore
 import "../css/footer.css";
-import HelpPage from "./screens/helpPage";
-import Test from "./screens/Test";
-import useBasket from "./hooks/useBasket";
+import AuthenticationModal from "./components/auth";
 
 function App() {
   const location = useLocation(); // uselocation react router domning hook i bzga object va path beradi
 
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
+  const [signupOpen, setsignupOpen] = useState<boolean>(false);
+  const [loginOpen, setloginOpen] = useState<boolean>(false);
+
+  /** HANDLERS **/
+  const handleSignupClose = () => setsignupOpen(false);
+  const handleLoginClose = () => setloginOpen(false);
 
   return (
     <>
@@ -60,6 +66,13 @@ function App() {
         </Route>
       </Switch>
       <Footer />
+      <AuthenticationModal 
+      signupOpen={signupOpen}
+      loginOpen={loginOpen}
+      handleLoginClose={handleLoginClose}
+      handleSignupClose={handleSignupClose}
+      
+      />
     </>
   );
 }
