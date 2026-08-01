@@ -19,7 +19,7 @@ import { serverApi } from "../../../lib/config";
 const popularDishesRetriever = createSelector(
   retrievePopularDishes,
   (popularDishes) => ({ popularDishes }),
-); //9
+);
 
 export default function PopularDishes() {
   const { popularDishes } = useSelector(popularDishesRetriever); //10
