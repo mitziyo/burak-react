@@ -39,20 +39,23 @@ class OrderService {
   }
 
   public async getMyOrders(input: OrderInquiry): Promise<Order[]> {
-    try {
-      // axios.defaults.withCredentials = true;
-      const url = `${this.path}/order/all`;
-      const query = `?page=${input.page}&limit=${input.limit}&orderStatus=${input.orderStatus}`;
+  try {
+    const url = `${this.path}/order/all`;
+    const query = `?page=${input.page}&limit=${input.limit}&orderStatus=${input.orderStatus}`;
 
-      const result = await axios.get(url + query, { withCredentials: true });
-      console.log("getMyOrders:", result);
+    const result = await axios.get(url + query, { withCredentials: true });
+    console.log("KELGAN DATA:", result.data);
 
-      return result.data;
-    } catch (err) {
-      console.log("Error. getMyOrders:", err);
-      throw err;
-    }
+    const data = result.data;
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data?.data)) return data.data;
+    if (Array.isArray(data?.orders)) return data.orders;
+    return [];                          // hech qanday massiv topilmasa
+  } catch (err) {
+    console.log("Error, getMyOrders:", err);
+    throw err;
   }
+}
 
   public async updateOrder(input: OrderUpdateInput): Promise<Order> {
     try {

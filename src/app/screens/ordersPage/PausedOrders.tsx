@@ -53,7 +53,7 @@ export default function PausedOrders(props: PausedOrdersProps) {
     }
   };
 
-  const processOrderHandler = async (e: T) => {
+  const proceedOrderHandler = async (e: T) => {
     try {
       if (!authMember) throw new Error(Messages.error2);
       // PAYMENT PROCESS
@@ -135,7 +135,7 @@ export default function PausedOrders(props: PausedOrdersProps) {
                   value={order._id}
                   variant="contained"
                   className={"pay-button"}
-                  onClick={processOrderHandler}
+                  onClick={proceedOrderHandler}
                 >
                   Payment
                 </Button>
